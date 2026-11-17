@@ -11,7 +11,7 @@ func BenchmarkPing(b *testing.B) {
 	defer client.Close()
 	defer server.Close()
 
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		rtt, err := client.Ping()
 		if err != nil {
 			b.Fatalf("err: %v", err)
@@ -37,7 +37,7 @@ func BenchmarkAccept(b *testing.B) {
 		}
 	}()
 
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		stream, err := client.Open(context.Background())
 		if err != nil {
 			b.Fatalf("err: %v", err)
@@ -76,7 +76,7 @@ func BenchmarkSendRecv(b *testing.B) {
 		b.Fatalf("err: %v", err)
 	}
 	defer stream.Close()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		if _, err := stream.Write(sendBuf); err != nil {
 			b.Fatalf("err: %v", err)
 		}
@@ -120,7 +120,7 @@ func BenchmarkSendRecvLarge(b *testing.B) {
 		b.Fatalf("err: %v", err)
 	}
 	defer stream.Close()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		if _, err := stream.Write(sendBuf); err != nil {
 			b.Fatalf("err: %v", err)
 		}
