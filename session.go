@@ -572,7 +572,17 @@ func (s *Session) sendLoop() (err error) {
 		}
 	}()
 
-	defer close(s.sendDoneCh)
+	defer func() {
+		close(s.sendDoneCh)
+		for {
+			select {
+			case b := <-s.sendCh:
+				poolPut(b)
+			default:
+				return
+			}
+		}
+	}()
 
 	// Extend the write deadline if we've passed the halfway point. This can
 	// be expensive so this ensures we only have to do this once every
