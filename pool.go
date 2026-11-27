@@ -13,7 +13,7 @@ func poolGet(size int) []byte {
 }
 
 func poolPut(buf []byte) {
-	if cap(buf) == 0 || cap(buf) > 65536 { // wtf???
+	if cap(buf) < 64 || cap(buf) > 65536 { // wtf???
 		return
 	}
 	pool.Put(buf)

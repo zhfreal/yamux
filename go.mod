@@ -12,4 +12,4 @@ require (
 	golang.org/x/sys v0.50.0 // indirect
 )
 
-replace github.com/metacubex/sing => github.com/zhfreal/sing v0.5.10-0.20261125005639-d6d53d30c901
+replace github.com/metacubex/sing => github.com/zhfreal/sing v0.5.10-0.20261127064707-9ba267e5c2a1
